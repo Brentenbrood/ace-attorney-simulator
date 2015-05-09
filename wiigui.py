@@ -70,7 +70,7 @@ def main():
         screen.blit(wiimotetext, (300, 5))
 
         if wm.state['acc'][2] <= 40:
-            print 'SLAM'
+            print "SLAM " + Xaxis + " " + Yaxis + " " + Zaxis
             desk_playing = True
             objection_playing = False
             normal_playing = False
@@ -79,7 +79,7 @@ def main():
             pygame.mixer.music.play()
 
         if wm.state['acc'][1] <= 50:
-            print 'OBJECTION!'
+            print "OBJECTION! " + Xaxis + " " + Yaxis + " " + Zaxis
             objection_playing = True
             desk_playing = False
             normal_playing = False
