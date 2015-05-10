@@ -1,5 +1,6 @@
 import pygame
 import cwiid
+import time
 from states import main_menu
 
 class Game():
@@ -10,7 +11,10 @@ class Game():
 		self.clock = pygame.time.Clock()
 		pygame.display.set_caption("Ace Attorney Simulator")
 		self.font = pygame.font.SysFont("monospace", 16)
-        
+
+		self.screen.blit(self.font.render("Press 1 + 2 on the wiimote", 1, (255,255,255)), (self.screen.get_width()/2-130, 5))
+		pygame.display.update()
+		
 		self.state = main_menu.Menu(self.screen, cwiid.Wiimote())
 		self.running = False
 
@@ -25,6 +29,6 @@ class Game():
 			#self.state.update()
 			#self.state.draw()
 
-			pygame.display.flip()
+			pygame.display.update()
 			self.clock.tick(60)
 
