@@ -1,5 +1,5 @@
 import pygame
-import states
+from states import main_menu
 
 class Game():
 	def __init__(self):
@@ -9,7 +9,7 @@ class Game():
 		self.clock = pygame.time.Clock()
 		pygame.display.set_caption("Ace Attorney Simulator")
 		self.font = pygame.font.SysFont("monospace", 16)
-		self.state = None
+		self.state = main_menu.Menu(self.screen)
 		self.running = False
 
 	def start(self):
