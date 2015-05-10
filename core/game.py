@@ -18,7 +18,7 @@ class Game():
                          (self.screen.get_width() / 2 - 130, 5))
         pygame.display.update()
 
-        self.state = main_menu.Menu(self, self.screen, cwiid.Wiimote())
+        self.state = main_menu.Menu(self.screen, cwiid.Wiimote(), self)
         self.running = False
 
     def changeState(self, state):
@@ -31,6 +31,7 @@ class Game():
         	for event in pygame.event.get():
         		if event.type == pygame.QUIT:
         			self.running = False
+
         	self.state.update()
         	self.state.draw()
         	pygame.display.update()
