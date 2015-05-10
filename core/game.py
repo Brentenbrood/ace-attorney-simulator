@@ -1,4 +1,5 @@
 import pygame
+import cwiid
 from states import main_menu
 
 class Game():
@@ -9,7 +10,8 @@ class Game():
 		self.clock = pygame.time.Clock()
 		pygame.display.set_caption("Ace Attorney Simulator")
 		self.font = pygame.font.SysFont("monospace", 16)
-		self.state = main_menu.Menu(self.screen)
+        
+		self.state = main_menu.Menu(self.screen, cwiid.Wiimote())
 		self.running = False
 
 	def start(self):
@@ -19,7 +21,7 @@ class Game():
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.running = False
-			
+
 			#self.state.update()
 			#self.state.draw()
 

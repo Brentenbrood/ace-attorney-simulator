@@ -7,13 +7,11 @@ class Menu():
 
     	self.screen = screen
         self.myfont = pygame.font.SysFont("monospace", 16)
-        self.wiimotetext = self.myfont.render("Press 1 + 2 on the Wii Remote", 1, Color.GREEN)
-        self.screen.blit(self.wiimotetext, (screen.get_width()/2-130, 5))
 
         self.wm = wm
         self.wm.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.wm.led = 1
-        self.screen.blit("Wii Remote connected", (screen.get_width()/2-130, 5), 5)
+        self.screen.blit(self.myfont.render("Wii Remote connected", 1, Color.GREEN), (screen.get_width()/2-130, 5))
 
     def updated(self):
     	pass
