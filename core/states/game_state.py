@@ -4,17 +4,19 @@ from ..utils.colors import Color
 
 class GameState():
     def __init__(self, screen, wm):
+        self.screen = screen
         self.wm = wm
-        font = pygame.font.SysFont("monospace", 16)
-        Xaxis = "X: " + str(self.wm.state['acc'][0])
-        Yaxis = "Y: " + str(self.wm.state['acc'][1])
-        Zaxis = "Z: " + str(self.wm.state['acc'][2])
+        self.font = pygame.font.SysFont("monospace", 16)
+        self.Xaxis = "X: " + str(self.wm.state['acc'][0])
+        self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
+        self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
 
-        wiimotetext = font.render(Xaxis + " " + Yaxis + " " + Zaxis, 1, Color.GREEN)
-        screen.blit(wiimotetext, (300, 5))
 
     def update(self):
-        pass
+        self.Xaxis = "X: " + str(self.wm.state['acc'][0])
+        self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
+        self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
 
     def draw(self):
-        pass
+        wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
+        self.screen.blit(wiimotetext, (300, 5))

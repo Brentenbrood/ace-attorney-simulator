@@ -1,28 +1,27 @@
 import pygame
-import cwiid
+from game_state import GameState
 from ..utils.colors import Color
+import cwiid
 
 class Menu():
     def __init__(self, game, screen, wm):
+        self.game = game
     	self.screen = screen
         self.font = pygame.font.SysFont("monospace", 16)
 
         self.wm = wm
         self.wm.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.wm.led = 1
-
-
         #Reset the screen
-        pygame.draw.rect(self.screen, (0,0,0), (0,0,self.screen.get_width(), self.screen.get_height()))
-        self.wiimotetext = self.font.render("Press A to continue", 1, Color.GREEN)
-        self.screen.blit(self.wiimotetext, (300, 5))
+        self.screen.fill(Color.BLACK)
 
     def update(self):
-    	while wm.state['buttons'] == 8:
-            self.state = game_state.GameState(self.screen, cwiid.Wiimote())
+
+    	while self.wm.state['buttons'] == 8:
+            self.game.changeState(GameState(self.screen, self.wm))
 
     def draw(self):
-    	pass
+    	self.screen.blit(self.font.render("Press A to continue", 1, Color.GREEN), (300, 5))
 
 
 

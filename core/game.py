@@ -1,6 +1,7 @@
 import pygame
 import cwiid
 import time
+from utils.colors import Color
 from states import main_menu
 
 
@@ -17,20 +18,21 @@ class Game():
                          (self.screen.get_width() / 2 - 130, 5))
         pygame.display.update()
 
-        self.state = main_menu.Menu('game', self.screen, cwiid.Wiimote())
+        self.state = main_menu.Menu(self, self.screen, cwiid.Wiimote())
         self.running = False
+
+    def changeState(self, state):
+    	self.state = state
 
     def start(self):
         self.running = True
-
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                    # self.state.update()
-            #self.state.draw()
-
-            pygame.display.update()
-            self.clock.tick(60)
+        	self.screen.fill(Color.BLACK)
+        	for event in pygame.event.get():
+        		if event.type == pygame.QUIT:
+        			self.running = False
+        	self.state.update()
+        	self.state.draw()
+        	pygame.display.update()
+        	self.clock.tick(60)
 
