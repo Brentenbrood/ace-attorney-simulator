@@ -20,9 +20,9 @@ class Menu():
     	while self.wm.state['buttons'] == 8:
             self.game.changeState(GameState(self.screen, self.wm))
 
-        if wm.state['buttons'] == 4096:
+        if self.wm.state['buttons'] == 4096:
             print "Closing connection..."
-            exit(wm)
+            exit(self.wm)
 
     def draw(self):
     	self.screen.blit(self.font.render("Press A to continue", 1, Color.GREEN), (300, 5))
