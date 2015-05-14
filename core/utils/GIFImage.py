@@ -101,6 +101,7 @@ class GIFImage(object):
 
     def render(self, screen, pos, stop=False, callback=None):
         if self.cur == self.breakpoint and stop:
+            self.running = False
             if callback:
                 callback()
             screen.blit(self.frames[self.cur][0], pos)
