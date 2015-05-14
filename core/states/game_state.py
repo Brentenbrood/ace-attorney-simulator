@@ -12,10 +12,10 @@ class GameState(State):
     def __init__(self, screen, wm, game):
         super(GameState, self).__init__(wm, screen, game)
         
-        self.font = pygame.font.SysFont("monospace", 16)
-        self.Xaxis = "X: " + str(self.wm.state['acc'][0])
-        self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
-        self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
+        self.font =     pygame.font.SysFont("monospace", 16)
+        self.Xaxis =    "X: " + str(self.wm.state['acc'][0])
+        self.Yaxis =    "Y: " + str(self.wm.state['acc'][1])
+        self.Zaxis =    "Z: " + str(self.wm.state['acc'][2])
 
         f = os.path.dirname(__file__)
 
@@ -23,18 +23,18 @@ class GameState(State):
         self.images["empty-right"] =    pygame.image.load(os.path.join(f, '../img/empty-right.png'))
         self.images["desk-left"] =      pygame.image.load(os.path.join(f, '../img/bench-left.png'))
         self.images["desk-right"] =     pygame.image.load(os.path.join(f, '../img/bench-right.png'))
-        self.images["bench-judge"] =     pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
-        self.images["bg-courtroom"] =     pygame.image.load(os.path.join(f, '../img/bg-courtroom.jpg'))
+        self.images["bench-judge"] =    pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
+        self.images["bg-courtroom"] =   pygame.image.load(os.path.join(f, '../img/bg-courtroom.jpg'))
 
-        self.lastTime = pygame.time.get_ticks()
+        self.lastTime =     pygame.time.get_ticks()
 
-        self.lawyer = Lawyer(0,192,"../img/phoenix")
-        self.prosecutor = Prosecutor(512,192,"../img/edgeworth")
-        self.judge = Judge(256,0,"../img/judge")
+        self.lawyer =       Lawyer(0,192,"../img/phoenix")
+        self.prosecutor =   Prosecutor(512,192,"../img/edgeworth")
+        self.judge =        Judge(256,0,"../img/judge")
 
-        self.holdit = Emote(256, 192, "../img/emote-holdit.gif")
-        self.objection = Emote(256, 192, "../img/emote-objection.gif")
-        self.takethat = Emote(256, 192, "../img/emote-takethat.gif")
+        self.holdit =       Emote(256, 192, "../img/emote-holdit.gif")
+        self.objection =    Emote(256, 192, "../img/emote-objection.gif")
+        self.takethat =     Emote(256, 192, "../img/emote-takethat.gif")
 
 
     def update(self):
@@ -66,7 +66,7 @@ class GameState(State):
         # self.screen.transform.scale(["bg-courtroom"], (768,432))
 
         wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
-
+        
         #Emotes
         self.holdit.draw(self.screen)
         self.takethat.draw(self.screen)

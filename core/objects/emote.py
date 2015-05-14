@@ -5,11 +5,6 @@ import os
 
 class Emote(object):
     def __init__(self, x, y, image):
-
-    	def stop(self):
-    		print "I should have stopped"
-    		self.running = False
-
         self.x = x
         self.y = y
         self.cb = stop
@@ -22,7 +17,10 @@ class Emote(object):
 
     def draw(self, screen):
     	if self.running:
-			self.gif.render(screen, (self.x, self.y), callback=self.cb)
+			self.gif.render(screen, (self.x, self.y), callback_object=self)
+
+	def stop(self):
+		self.running = False
 		
 
 
