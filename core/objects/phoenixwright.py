@@ -18,16 +18,16 @@ class Lawyer(object):
 
         self.sprites = {}
         self.sprites["normal"] = (os.path.join(dir, self.bsn + "-normal.gif"), False)
-        self.sprites["deskslam"] = os.path.join(dir, self.bsn + "-deskslam.gif", True)
-        self.sprites["objection"] = os.path.join(dir, self.bsn + "-objection.gif", True)
-        self.sprites["paperslap"] = os.path.join(dir, self.bsn + "-paperslap.gif", False)
+        self.sprites["deskslam"] = (os.path.join(dir, self.bsn + "-deskslam.gif"), True)
+        self.sprites["objection"] = (os.path.join(dir, self.bsn + "-objection.gif"), True)
+        self.sprites["paperslap"] = (os.path.join(dir, self.bsn + "-paperslap.gif"), False)
 
-        self.gif = GIFImage(self.sprites["normal"])
+        self.gif = GIFImage(self.sprites["normal"][0])
         self.stop = False
 
     def changeState(self, n):
     	self.animation = n
-        
+
         f = self.sprites["normal"][0]
         self.stop = self.sprites["normal"][1]
 
