@@ -34,7 +34,7 @@ class GameState(State):
         self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
         self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
 
-        if (pygame.time.get_ticks() - self.lastTime) > 1000:
+        if (pygame.time.get_ticks() - self.lastTime) > 100:
             if self.wm.state['acc'][2] <= 40:
                 print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(1)
