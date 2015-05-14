@@ -99,13 +99,16 @@ class GIFImage(object):
         except EOFError:
             pass
 
-    def render(self, screen, pos, stop=False, callback=None):
+    def render(self, screen, pos, stop=False, draw_after=True, callback=None):
         if self.cur == self.breakpoint and stop:
             self.running = False
-            if callback:
-                callback()
-            screen.blit(self.frames[self.cur][0], pos)
+            if draw_after:
+                screen.blit(self.frames[self.cur][0], pos)
             return
+        elif self.cur == self.breakpoint:
+            if callback:
+                print "I am a callback"
+                callback()
         if self.running:
             if time.time() - self.ptime > self.frames[self.cur][1]:
                 if self.reversed:

@@ -25,7 +25,7 @@ class Judge(object):
         self.gif = GIFImage(f)
 
     def draw(self, screen):
-		self.gif.render(screen, (self.x, self.y), stop=True)
+		self.gif.render(screen, (self.x, self.y), stop=False)
 		
 
 
