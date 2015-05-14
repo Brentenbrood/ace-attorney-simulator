@@ -3,6 +3,7 @@ import cwiid
 import time
 from utils.colors import Color
 from states import main_menu
+import core.utils.wiinit as wiinit
 
 
 class Game():
@@ -12,13 +13,8 @@ class Game():
         self.screen = pygame.display.set_mode(self.size)
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Ace Attorney Simulator")
-        self.font = pygame.font.SysFont("monospace", 16)
-
-        self.screen.blit(self.font.render("Press 1 + 2 on the wiimote", 1, (255, 255, 255)),
-                         (self.screen.get_width() / 2 - 130, 5))
-        pygame.display.update()
-
-        self.state = main_menu.Menu(self.screen, cwiid.Wiimote(), self)
+        self.wm = wiinit.get_connection_with_drawing(self.screen)
+        self.state = main_menu.Menu(self.screen, self.wm, self)
         self.running = False
 
     def changeState(self, state):
