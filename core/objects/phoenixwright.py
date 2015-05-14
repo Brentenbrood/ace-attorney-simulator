@@ -13,9 +13,9 @@ class Lawyer(object):
         dir = os.path.dirname(__file__)
 
         self.sounds = {}
-        self.sounds["objection"] = pygame.mixer.Sound(os.path.join(dir, "../sound/objection.mp3"))
+        self.sounds["objection"] = pygame.mixer.Sound(os.path.join(dir, "../sound/sfx-objection.wav"))
         self.sounds["deskslam"] = pygame.mixer.Sound(os.path.join(dir, "../sound/sfx-deskslam.wav"))
-        
+
         self.sprites = {}
         self.sprites["normal"] = os.path.join(dir, self.bsn + "-normal.gif")
         self.sprites["deskslam"] = os.path.join(dir, self.bsn + "-deskslam.gif")
@@ -30,7 +30,7 @@ class Lawyer(object):
             self.sounds["deskslam"].play()
             f = self.sprites["deskslam"]
         elif self.animation == AnimState.objection:
-            pygame.mixer.Sound.play(self.sounds["objection"])
+            self.sounds["objection"]).play()
             f = self.sprites["objection"]
         elif self.animation == AnimState.paperslap:
             f = self.sprites["paperslap"]
