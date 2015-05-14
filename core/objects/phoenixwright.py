@@ -21,6 +21,7 @@ class Lawyer(object):
         self.gif = GIFImage(self.sprites["normal"])
     def changeState(self, n):
     	self.animation = n
+        f = self.sprites["normal"]
     	if self.animation == AnimState.deskslam:
 			f = self.sprites["deskslam"]
         elif self.animation == AnimState.objection:

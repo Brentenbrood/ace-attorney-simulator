@@ -1,6 +1,6 @@
 import pygame
 import cwiid
-from ..utils.colors import Color
+from core.utils.colors import Color
 from state import State
 from core.objects.phoenixwright import Lawyer
 

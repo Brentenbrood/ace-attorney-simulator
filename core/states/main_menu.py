@@ -1,7 +1,7 @@
 import pygame
 from game_state import GameState
 from state import State
-from ..utils.colors import Color
+from core.utils.colors import Color
 import cwiid
 
 class Menu(State):
