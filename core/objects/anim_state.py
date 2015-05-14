@@ -9,3 +9,4 @@ class AnimState(Enum):
 	paperblock = 2
 	pointblock = 3
 	angry = 4
+	shocked = 1

@@ -5,6 +5,7 @@ from core.utils.colors import Color
 from core.states.state import State
 from core.objects.phoenixwright import Lawyer
 from core.objects.milesedgeworth import Prosecutor
+from core.objects.judge import Judge
 
 class GameState(State):
     def __init__(self, screen, wm, game):
@@ -21,11 +22,13 @@ class GameState(State):
         self.images["empty-right"] =    pygame.image.load(os.path.join(f, '../img/empty-right.png'))
         self.images["desk-left"] =      pygame.image.load(os.path.join(f, '../img/bench-left.png'))
         self.images["desk-right"] =     pygame.image.load(os.path.join(f, '../img/bench-right.png'))
+        self.images["bench-judge"] =     pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
 
         self.lastTime = pygame.time.get_ticks()
 
         self.lawyer = Lawyer(0,192,"../img/phoenix")
         self.prosecutor = Prosecutor(512,192,"../img/edgeworth")
+        self.judge = Judge(256,0,"../img/judge")
 
 
     def update(self):
@@ -53,12 +56,17 @@ class GameState(State):
         super(GameState, self).draw()
         wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
 
+
+        #Lawyer
         self.screen.blit(self.images["empty-left"], (0,192))
         self.lawyer.draw(self.screen)
         self.screen.blit(self.images["desk-left"], (0,192))
-        self.screen.blit(wiimotetext, (300, 5))
 
+        #Prosecutor
         self.screen.blit(self.images["empty-right"], (512,192))
         self.prosecutor.draw(self.screen)
         self.screen.blit(self.images["desk-right"], (512,192))
-        self.screen.blit(wiimotetext, (300, 5))
+
+        #Judge
+        self.screen.blit(self.images["bench-judge"], (256,0))
+        self.judge.draw(self.screen)
