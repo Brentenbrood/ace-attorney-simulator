@@ -4,6 +4,7 @@ import os
 from core.utils.colors import Color
 from core.states.state import State
 from core.objects.phoenixwright import Lawyer
+from core.objects.milesedgeworth import Prosecutor
 
 class GameState(State):
     def __init__(self, screen, wm, game):
@@ -24,6 +25,7 @@ class GameState(State):
         self.lastTime = pygame.time.get_ticks()
 
         self.lawyer = Lawyer(0,0,"../img/phoenix")
+        self.prosecutor = Prosecutor(512,192,"../img/edgeworth")
 
 
     def update(self):

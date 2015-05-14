@@ -7,7 +7,7 @@ import core.utils.wiinit as wiinit
 class Game():
     def __init__(self):
         pygame.init()
-        self.size = (800, 500)
+        self.size = (768, 432)
         self.screen = pygame.display.set_mode(self.size)
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Ace Attorney Simulator")
