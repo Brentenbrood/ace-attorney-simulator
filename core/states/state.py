@@ -3,6 +3,7 @@ class State(object):
 		self.wm = wm;
 		self.screen = screen
 		self.game = game
+		self.images = {}
 
 	def update(self):
 		if self.wm.state['buttons'] == 4096:
