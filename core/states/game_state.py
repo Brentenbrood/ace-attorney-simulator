@@ -22,7 +22,7 @@ class GameState(State):
         self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
         self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
         if self.wm.state["buttons"] == 3:
-            self.lawyer.changeState(2)
+            self.lawyer.changeState(1)
 
     def draw(self):
         super(GameState, self).draw()
