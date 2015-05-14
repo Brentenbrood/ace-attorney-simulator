@@ -55,7 +55,7 @@ class GameState(State):
     def draw(self):
         super(GameState, self).draw()
         wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
-
+        self.screen.blit(wiimotetext, (280,384))
 
         #Lawyer
         self.screen.blit(self.images["empty-left"], (0,192))
