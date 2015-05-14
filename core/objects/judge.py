@@ -13,7 +13,7 @@ class Judge(object):
         dir = os.path.dirname(__file__)
         self.sounds = {}
         self.sprites = {}
-        self.sprites["normal"] = os.path.join(dir, self.bsn + "-normal.gif")
+        self.sprites["normal"] = os.path.join(dir, self.bsn + "-normal.gif"))
         self.sprites["shocked"] = os.path.join(dir, self.bsn + "-shocked.gif")
         self.gif = GIFImage(self.sprites["normal"])
 
@@ -25,7 +25,7 @@ class Judge(object):
         self.gif = GIFImage(f)
 
     def draw(self, screen):
-		self.gif.render(screen, (self.x, self.y), stop=True)
+		self.gif.render(screen, (self.x, self.y), stop=False)
 		
 
 
