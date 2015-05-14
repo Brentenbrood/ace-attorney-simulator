@@ -23,6 +23,7 @@ class GameState(State):
         self.images["desk-left"] =      pygame.image.load(os.path.join(f, '../img/bench-left.png'))
         self.images["desk-right"] =     pygame.image.load(os.path.join(f, '../img/bench-right.png'))
         self.images["bench-judge"] =     pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
+        self.images["bg-courtroom"] =     pygame.image.load(os.path.join(f, '../img/bg-courtroom.jpg'))
 
         self.lastTime = pygame.time.get_ticks()
 
@@ -54,8 +55,11 @@ class GameState(State):
 
     def draw(self):
         super(GameState, self).draw()
+
+        self.screen.blit(self.images["bg-courtroom"], (0,0))
+        # self.screen.transform.scale(["bg-courtroom"], (768,432))
+
         wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
-        self.screen.blit(wiimotetext, (280,384))
 
         #Lawyer
         self.screen.blit(self.images["empty-left"], (0,192))
