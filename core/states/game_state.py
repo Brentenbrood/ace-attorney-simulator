@@ -27,7 +27,7 @@ class GameState(State):
         elif self.wm.state['acc'][1] <= 50:
             print "OBJECTION " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
             self.lawyer.changeState(2)
-        elif self.wm.state['acc'][0] <= 50 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 160:
+        elif self.wm.state['acc'][0] <= 30 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 110:
             print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
             self.lawyer.changeState(3)
 
