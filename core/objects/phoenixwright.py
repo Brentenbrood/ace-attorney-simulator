@@ -1,5 +1,5 @@
 import pygame
-from anim_state import AnimState
+from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
 import os
 
@@ -14,7 +14,7 @@ class Lawyer(object):
 
         self.sounds = {}
         self.sounds["objection"] = pygame.mixer.Sound(os.path.join(dir, "../sound/sfx-objection.wav"))
-        self.sounds["deskslam"] = pygame.mixer.Sound(os.path.join(dir, "../sound/sfx-deskslam.wav"))
+        self.sounds["deskslam"] = pygame.mixer.Sound(os.path.join(dir, "../sound/sfx-deskslam2.wav"))
 
         self.sprites = {}
         self.sprites["normal"] = os.path.join(dir, self.bsn + "-normal.gif")
@@ -36,7 +36,7 @@ class Lawyer(object):
             f = self.sprites["paperslap"]
         self.gif = GIFImage(f)
     def draw(self, screen, pos):
-		self.gif.render(screen, pos)
+		self.gif.render(screen, pos, stop=True)
 		
 
 

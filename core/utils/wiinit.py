@@ -1,6 +1,6 @@
 import cwiid
 import pygame
-from colors import Color
+from core.utils.colors import Color
 
 """ A utility module to get a cwiid connection with feedback """
 
