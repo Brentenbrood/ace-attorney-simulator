@@ -21,8 +21,10 @@ class GameState(State):
         self.Xaxis = "X: " + str(self.wm.state['acc'][0])
         self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
         self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
-        if self.wm.state["buttons"] == 3:
+        if self.wm.state['acc'][2] <= 40:
             self.lawyer.changeState(1)
+        elif self.wm.state['acc'][1] <= 50:
+            self.lawyer.changeState(2)
 
     def draw(self):
         super(GameState, self).draw()

@@ -30,7 +30,7 @@ class Lawyer(object):
             self.sounds["deskslam"].play()
             f = self.sprites["deskslam"]
         elif self.animation == AnimState.objection:
-            self.sounds["objection"]).play()
+            self.sounds["objection"].play()
             f = self.sprites["objection"]
         elif self.animation == AnimState.paperslap:
             f = self.sprites["paperslap"]
