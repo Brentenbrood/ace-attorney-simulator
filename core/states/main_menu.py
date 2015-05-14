@@ -1,6 +1,6 @@
 import pygame
-from game_state import GameState
-from state import State
+from core.states.game_state import GameState
+from core.states.state import State
 from core.utils.colors import Color
 import cwiid
 

@@ -1,5 +1,5 @@
 import pygame
-from anim_state import AnimState
+from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
 import os
 

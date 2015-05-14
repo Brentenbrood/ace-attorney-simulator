@@ -1,8 +1,9 @@
 import pygame
 import cwiid
 import time
-from utils.colors import Color
-from states import main_menu
+
+from core.utils.colors import Color
+from core.states import main_menu
 import core.utils.wiinit as wiinit
 
 

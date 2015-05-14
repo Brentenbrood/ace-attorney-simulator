@@ -1,7 +1,7 @@
 import pygame
 import cwiid
 from core.utils.colors import Color
-from state import State
+from core.states.state import State
 from core.objects.phoenixwright import Lawyer
 
 class GameState(State):
