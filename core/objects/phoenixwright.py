@@ -23,6 +23,7 @@ class Lawyer(object):
         self.sprites["paperslap"] = os.path.join(dir, self.bsn + "-paperslap.gif")
 
         self.gif = GIFImage(self.sprites["normal"])
+
     def changeState(self, n):
     	self.animation = n
         f = self.sprites["normal"]
@@ -35,8 +36,8 @@ class Lawyer(object):
         elif self.animation == AnimState.paperslap:
             f = self.sprites["paperslap"]
         self.gif = GIFImage(f)
-    def draw(self, screen, pos):
-		self.gif.render(screen, pos, stop=True)
+    def draw(self, screen):
+		self.gif.render(screen, (self.x, self.y), stop=True)
 		
 
 
