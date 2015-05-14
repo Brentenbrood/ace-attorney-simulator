@@ -66,6 +66,8 @@ class GameState(State):
         self.holdit.draw(self.screen)
         self.takethat.draw(self.screen)
         self.objection.draw(self.screen)
+        self.screen.blit(wiimotetext, (280,384))
+
 
         #Lawyer
         self.screen.blit(self.images["empty-left"], (0,192))
