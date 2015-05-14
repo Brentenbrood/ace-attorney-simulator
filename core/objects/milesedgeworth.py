@@ -34,5 +34,5 @@ class Prosecutor(object):
         elif self.animation == AnimState.angry:
             f = self.sprites["angry"]
         self.gif = GIFImage(f)
-    def draw(self, screen, pos):
-		self.gif.render(screen, pos, stop=True)
+    def draw(self, screen):
+		self.gif.render(screen, (self.x,self.y), stop=True)

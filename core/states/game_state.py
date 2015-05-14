@@ -24,7 +24,7 @@ class GameState(State):
 
         self.lastTime = pygame.time.get_ticks()
 
-        self.lawyer = Lawyer(0,0,"../img/phoenix")
+        self.lawyer = Lawyer(0,192,"../img/phoenix")
         self.prosecutor = Prosecutor(512,192,"../img/edgeworth")
 
 
@@ -53,7 +53,12 @@ class GameState(State):
         super(GameState, self).draw()
         wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
 
-        self.screen.blit(self.images["empty-left"], (0,0))
-        self.lawyer.draw(self.screen, (0,0))
-        self.screen.blit(self.images["desk-left"], (0, 0))
+        self.screen.blit(self.images["empty-left"], (0,192))
+        self.lawyer.draw(self.screen)
+        self.screen.blit(self.images["desk-left"], (0,192))
+        self.screen.blit(wiimotetext, (300, 5))
+
+        self.screen.blit(self.images["empty-right"], (512,192))
+        self.prosecutor.draw(self.screen)
+        self.screen.blit(self.images["desk-right"], (512,192))
         self.screen.blit(wiimotetext, (300, 5))
