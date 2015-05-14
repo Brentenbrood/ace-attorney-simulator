@@ -1,11 +1,8 @@
 import pygame
 import cwiid
-import time
-
 from core.utils.colors import Color
 from core.states import main_menu
 import core.utils.wiinit as wiinit
-
 
 class Game():
     def __init__(self):

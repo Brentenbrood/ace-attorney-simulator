@@ -13,6 +13,8 @@ class GameState(State):
         self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
         self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
 
+        self.lastTime = pygame.time.get_ticks()
+
         self.lawyer = Lawyer(0,0,"../img/phoenix")
 
 
@@ -21,15 +23,17 @@ class GameState(State):
         self.Xaxis = "X: " + str(self.wm.state['acc'][0])
         self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
         self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
-        if self.wm.state['acc'][2] <= 40:
-            print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-            self.lawyer.changeState(1)
-        elif self.wm.state['acc'][1] <= 50:
-            print "OBJECTION " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-            self.lawyer.changeState(2)
-        elif self.wm.state['acc'][0] <= 50 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 160:
-            print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-            self.lawyer.changeState(3)
+        if (pygame.time.get_ticks() - self.lastTime) > 1000:
+            if self.wm.state['acc'][2] <= 40:
+                print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
+                self.lawyer.changeState(1)
+            elif self.wm.state['acc'][1] <= 50:
+                print "OBJECTION " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
+                self.lawyer.changeState(2)
+            elif self.wm.state['acc'][0] <= 50 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 160:
+                print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
+                self.lawyer.changeState(3)
+            self.lastTime = pygame.time.get_ticks()
 
     def draw(self):
         super(GameState, self).draw()
