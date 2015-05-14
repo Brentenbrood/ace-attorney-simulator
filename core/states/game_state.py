@@ -28,13 +28,16 @@ class GameState(State):
             if self.wm.state['acc'][2] <= 40:
                 print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(1)
+                self.lastTime = pygame.time.get_ticks()
             elif self.wm.state['acc'][1] <= 50:
                 print "OBJECTION " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(2)
+                self.lastTime = pygame.time.get_ticks()
             elif self.wm.state['acc'][0] <= 30 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 110:
                 print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(3)
-        self.lastTime = pygame.time.get_ticks()
+                self.lastTime = pygame.time.get_ticks()
+        
 
     def draw(self):
         super(GameState, self).draw()
