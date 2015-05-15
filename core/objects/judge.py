@@ -13,15 +13,12 @@ class Judge(object):
         dir = os.path.dirname(__file__)
         self.sounds = {}
         self.sprites = {}
-        self.sprites["normal"] = os.path.join(dir, self.bsn + "-normal.gif")
-        self.sprites["shocked"] = os.path.join(dir, self.bsn + "-shocked.gif")
-        self.gif = GIFImage(self.sprites["normal"])
+        self.sprites[AnimState.normal] = os.path.join(dir, self.bsn + "-normal.gif")
+        self.sprites[AnimState.shocked] = os.path.join(dir, self.bsn + "-shocked.gif")
+        self.changeState(AnimState.normal)
 
     def changeState(self, n):
-    	self.animation = n
-        f = self.sprites["normal"]
-    	if self.animation == AnimState.shocked:
-            f = self.sprites["shocked"]
+        f = self.sprites[n]
         self.gif = GIFImage(f)
 
     def draw(self, screen):
