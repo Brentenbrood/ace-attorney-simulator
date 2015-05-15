@@ -13,14 +13,15 @@ class Emote(object):
         self.running = False
 
     def start(self):
-    	self.running = True
-
+        self.gif.seek(0)
+        self.running = True
+        
     def draw(self, screen):
-    	if self.running:
-			self.gif.render(screen, (self.x, self.y), callback_object=self)
+        if self.running:
+            self.gif.render(screen, (self.x, self.y), callback_object=self)
 
 	def stop(self):
-		self.running = False
+        self.running = False
 		
 
 
