@@ -1,3 +1,5 @@
+import os
+
 class State(object):
 	def __init__(self, wm, screen, game):
 		self.wm = wm;
@@ -12,3 +14,7 @@ class State(object):
 
 	def draw(self):
 		pass
+
+	def get_path_to_file(self, f):
+		dir = os.path.dirname(__file__)
+		return os.path.join(dir, f)

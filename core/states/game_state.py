@@ -19,12 +19,12 @@ class GameState(State):
 
         f = os.path.dirname(__file__)
 
-        self.images["empty-left"] =     pygame.image.load(os.path.join(f, '../img/empty-left.png'))        
-        self.images["empty-right"] =    pygame.image.load(os.path.join(f, '../img/empty-right.png'))
-        self.images["desk-left"] =      pygame.image.load(os.path.join(f, '../img/bench-left.png'))
-        self.images["desk-right"] =     pygame.image.load(os.path.join(f, '../img/bench-right.png'))
-        self.images["bench-judge"] =    pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
-        self.images["bg-courtroom"] =   pygame.image.load(os.path.join(f, '../img/bg-courtroom.jpg'))
+        self.images["empty-left"] =     pygame.image.load(self.get_path_to_file('../img/empty-left.png'))        
+        self.images["empty-right"] =    pygame.image.load(self.get_path_to_file('../img/empty-right.png'))
+        self.images["desk-left"] =      pygame.image.load(self.get_path_to_file('../img/bench-left.png'))
+        self.images["desk-right"] =     pygame.image.load(self.get_path_to_file('../img/bench-right.png'))
+        self.images["bench-judge"] =    pygame.image.load(self.get_path_to_file('../img/bench-judge.png'))
+        self.images["bg-courtroom"] =   pygame.image.load(self.get_path_to_file('../img/bg-courtroom.jpg'))
 
         self.lastTime =     pygame.time.get_ticks()
 
