@@ -17,8 +17,6 @@ class GameState(State):
         self.Yaxis =    self.wm.state['acc'][1]
         self.Zaxis =    self.wm.state['acc'][2]
 
-        f = os.path.dirname(__file__)
-
         self.images["empty-left"] =     pygame.image.load(self.get_path_to_file('../img/empty-left.png'))        
         self.images["empty-right"] =    pygame.image.load(self.get_path_to_file('../img/empty-right.png'))
         self.images["desk-left"] =      pygame.image.load(self.get_path_to_file('../img/bench-left.png'))
