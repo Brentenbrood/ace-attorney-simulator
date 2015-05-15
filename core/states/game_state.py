@@ -24,6 +24,9 @@ class GameState(State):
         self.images["bench-judge"] =    pygame.image.load(self.get_path_to_file('../img/bench-judge.png'))
         self.images["bg-courtroom"] =   pygame.image.load(self.get_path_to_file('../img/bg-courtroom.jpg'))
 
+        #Scale some images
+        self.images["bg-courtroom"] =   self.screen.transform.scale(self.images["bg-courtroom"], (768,432))
+
         self.lastTime =     pygame.time.get_ticks()
 
         self.lawyer =       Lawyer(0,192,"../img/phoenix")
@@ -61,7 +64,6 @@ class GameState(State):
         super(GameState, self).draw()
 
         self.screen.blit(self.images["bg-courtroom"], (0,0))
-        # self.screen.transform.scale(["bg-courtroom"], (768,432))
 
         wiimotetext = self.font.render("X: " + str(self.Xaxis) + " " + "Y: " + 
             str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 1, Color.GREEN)
