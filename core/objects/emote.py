@@ -7,7 +7,6 @@ class Emote(object):
     def __init__(self, x, y, image):
         self.x = x
         self.y = y
-        self.cb = stop
         dir = os.path.dirname(__file__)
         self.gif = GIFImage(os.path.join(dir, image))
         self.running = False
@@ -20,7 +19,7 @@ class Emote(object):
         if self.running:
             self.gif.render(screen, (self.x, self.y), callback_object=self)
 
-	def stop(self):
+    def stop(self):
         self.running = False
 		
 

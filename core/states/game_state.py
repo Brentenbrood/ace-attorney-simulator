@@ -1,6 +1,8 @@
 import pygame
 import cwiid
 import os
+import random
+
 from core.utils.colors import Color
 from core.states.state import State
 from core.objects.phoenixwright import Lawyer
@@ -25,7 +27,7 @@ class GameState(State):
         self.images["bg-courtroom"] =   pygame.image.load(self.get_path_to_file('../img/bg-courtroom.jpg'))
 
         #Scale some images
-        self.images["bg-courtroom"] =   self.screen.transform.scale(self.images["bg-courtroom"], (768,432))
+        self.images["bg-courtroom"] =   pygame.transform.scale(self.images["bg-courtroom"], (768,432))
 
         self.lastTime =     pygame.time.get_ticks()
 
@@ -53,7 +55,15 @@ class GameState(State):
                 #print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(2)
                 self.lastTime = pygame.time.get_ticks()
-                self.objection.start()
+
+                r = random.randint(0, 100)
+
+                if r < 50:
+                    self.objection.start()
+                    self.holdit.stop()
+                else:
+                    self.objection.stop()
+                    self.holdit.start()
             elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
                 #print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(3)

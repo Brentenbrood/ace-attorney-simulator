@@ -8,15 +8,14 @@ class Menu(State):
     def __init__(self, screen, wm, game):
         super(Menu, self).__init__(wm, screen, game)
 
-        self.font = pygame.font.Font(self.get_path_to_file("../fonts/Ace-Attorney.ttf"))
+        self.font = pygame.font.Font(self.get_path_to_file("../fonts/Ace-Attorney.ttf"), 24)
 
         self.wm.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.wm.led = 1
 
         self.choices = [
-            ("Play",        GameState(self.screen, self.wm, self.game), 
-            ("How to play", HowToPlayState(self.screen, self.wm, self.game)
-        ]
+            ("Play",       GameState(self.screen, self.wm, self.game))]
+            #("How to play", HowToPlayState(self.screen, self.wm, self.game))]
         
         self.screen.fill(Color.BLACK)
 

@@ -107,7 +107,7 @@ class GIFImage(object):
             return
         elif self.cur == self.breakpoint:
             if callback_object:
-                callback_object.done()
+                callback_object.stop()
         if self.running:
             if time.time() - self.ptime > self.frames[self.cur][1]:
                 if self.reversed:

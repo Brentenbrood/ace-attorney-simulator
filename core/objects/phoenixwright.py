@@ -22,7 +22,7 @@ class Lawyer(object):
         self.sprites[AnimState.objection] = (os.path.join(dir, self.bsn + "-objection.gif"), True)
         self.sprites[AnimState.paperslap] = (os.path.join(dir, self.bsn + "-paperslap.gif"), False)
 
-        self.gif = GIFImage(self.sprites["normal"][0])
+        self.gif = GIFImage(self.sprites[AnimState.normal][0])
         self.stop = False
 
     def changeState(self, n):
