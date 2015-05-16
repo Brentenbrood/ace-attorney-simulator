@@ -14,6 +14,8 @@ class GameState(State):
     def __init__(self, screen, wm, game):
         super(GameState, self).__init__(wm, screen, game)
         
+        pygame.mixer.init()
+
         self.font =     pygame.font.SysFont("monospace", 16)
         self.Xaxis =    self.wm.state['acc'][0]
         self.Yaxis =    self.wm.state['acc'][1]
