@@ -7,7 +7,7 @@ Requirements:
 
 Required Dependencies:
 * python-CWiid
-* python-enumb
+* python-enum
 
 Start the game by typing:
 > python start.py
