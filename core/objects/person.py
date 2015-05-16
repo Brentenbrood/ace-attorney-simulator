@@ -1,4 +1,5 @@
 import os
+
 from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
 
