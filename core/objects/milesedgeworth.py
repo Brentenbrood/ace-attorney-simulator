@@ -1,29 +1,18 @@
 import pygame
-from core.objects.anim_state import AnimState
-from core.utils.GIFImage import GIFImage
 import os
 
-class Prosecutor(object):
-    def __init__(self, x, y, base_sprite_name):
-        self.x = x
-        self.y = y
-        self.animation = AnimState.normal
-        self.bsn = base_sprite_name
+from core.objects.anim_state import AnimState
+from core.utils.GIFImage import GIFImage
+from core.objects.person import Person
 
-        dir = os.path.dirname(__file__)
+class Prosecutor(Person):
+    def __init__(self, x, y, base_sprite_path):
+        super(Prosecutor, self).__init__(x, y, base_sprite_path)
 
-        self.sprites = {}
-        self.sprites[AnimState.normal] =     os.path.join(dir, self.bsn + "-normal.gif")
-        self.sprites[AnimState.paperblock] = os.path.join(dir, self.bsn + "-paperblock.gif")
-        self.sprites[AnimState.pointblock] = os.path.join(dir, self.bsn + "-pointblock.gif")
-        self.sprites[AnimState.damage] =     os.path.join(dir, self.bsn + "-damage.gif")
-        self.sprites[AnimState.angry] =      os.path.join(dir, self.bsn + "-angry.gif")
+        self.addState(AnimState.normal, "-normal.gif", False)
+        self.addState(AnimState.paperblock, "-paperblock.gif", False)
+        self.addState(AnimState.pointblock, "-pointblock.gif", True)
+        self.addState(AnimState.damage, "-damage.gif", True)
+        self.addState(AnimState.angry, "-angry.gif", True)
 
-        self.gif = GIFImage(self.sprites[AnimState.normal])
-
-    def changeState(self, n):
-        f = self.sprites[n]
-        self.gif = GIFImage(f)
-
-    def draw(self, screen):
-		self.gif.render(screen, (self.x,self.y), stop=True)
+        self.changeState(AnimState.normal)
