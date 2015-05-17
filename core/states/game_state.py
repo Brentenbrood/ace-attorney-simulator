@@ -2,6 +2,7 @@ import pygame
 import cwiid
 import os
 import random
+import math
 
 from core.utils.colors import Color
 from core.states.state import State
@@ -27,11 +28,13 @@ class GameState(State):
         self.images["desk-right"] =     pygame.image.load(self.get_path_to_file('../img/bench-right.png'))
         self.images["bench-judge"] =    pygame.image.load(self.get_path_to_file('../img/bench-judge.png'))
         self.images["bg-courtroom"] =   pygame.image.load(self.get_path_to_file('../img/bg-courtroom.jpg'))
+        self.images["healthbar"] =      pygame.image.load(self.get_path_to_file('../img/healthbar.png'))
 
         #Scale some images
         self.images["bg-courtroom"] =   pygame.transform.scale(self.images["bg-courtroom"], (768,432))
 
         self.lastTime =     pygame.time.get_ticks()
+        self.lastTick =     pygame.time.get_ticks()
 
         self.lawyer =       Lawyer(0,192,"../img/phoenix")
         self.prosecutor =   Prosecutor(512,192,"../img/edgeworth")
@@ -44,6 +47,11 @@ class GameState(State):
 
     def update(self):
         super(GameState, self).update()
+
+        nowTick = pygame.time.get_ticks()
+
+        self.lawyer.hp -= 0.1
+
         self.Xaxis = self.wm.state['acc'][0]
         self.Yaxis = self.wm.state['acc'][1]
         self.Zaxis = self.wm.state['acc'][2]
@@ -73,6 +81,10 @@ class GameState(State):
                 #print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(3)
                 self.lastTime = pygame.time.get_ticks()
+
+        self.lastTick = pygame.time.get_ticks()
+
+
         
 
     def draw(self):
@@ -102,3 +114,13 @@ class GameState(State):
         #Judge
         self.screen.blit(self.images["bench-judge"], (256,0))
         self.judge.draw(self.screen)
+
+        #Healthbar Lawyer
+        temp_img  = self.images["healthbar"]
+        if self.lawyer.hp > 0:
+            self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
+
+        #Prosecutor healthbar
+        if self.prosecutor.hp > 0:
+            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.prosecutor.hp/100*temp_img.get_width(), temp_img.get_height()))
+
