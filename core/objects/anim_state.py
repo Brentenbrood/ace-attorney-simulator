@@ -9,6 +9,7 @@ class AnimState(Enum):
 	deskslam = 1
 	objection = 2
 	paperslap = 3
+	ohshit = 9
 
 	#Prosecutor
 	damage = 4

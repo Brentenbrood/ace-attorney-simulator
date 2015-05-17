@@ -85,6 +85,8 @@ class GameState(State):
 						self.lawyer.playSound('holdit')
 				else:
 					self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
+					self.lawyer.changeState(AnimState.ohshit)
+					
 			elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
 				#print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(3)
