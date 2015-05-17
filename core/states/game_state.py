@@ -61,7 +61,7 @@ class GameState(State):
 		super(GameState, self).update()
 
 		nowTick = pygame.time.get_ticks()
-
+		# Gives rumble time to rumble
 		if self.rumble == True and ((nowTick - self.rumbleTick) > 400):
 			self.rumbleTick = pygame.time.get_ticks()
 			self.wm.rumble = False
@@ -70,6 +70,7 @@ class GameState(State):
 		self.Yaxis = self.wm.state['acc'][1]
 		self.Zaxis = self.wm.state['acc'][2]
 
+		# Amount of time flash
 		if self.flashing:
 			if (nowTick - self.flashTick) > 20:
 				self.flashing = False
@@ -86,10 +87,12 @@ class GameState(State):
 				#print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(2)
 				self.lastTime = pygame.time.get_ticks()
-				self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 
-				r = random.randint(0, 100)
+				# Only hits when prosecutor doesn't block
 				if self.prosecutor.animation != AnimState.paperblock:
+					r = random.randint(0, 100)
+					# On succesful hit damages the prosecutor
+					self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 					if r < 50:
 						self.objection.start()
 						self.lawyer.playSound('objection')
@@ -99,6 +102,7 @@ class GameState(State):
 						self.holdit.start()
 						self.lawyer.playSound('holdit')
 				else:
+					# Shit happens when you use objection!/hold it! when prosecutor blocks
 					self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
 					self.lawyer.changeState(AnimState.ohshit)
 					self.rumble = True
@@ -109,6 +113,7 @@ class GameState(State):
 				self.lawyer.changeState(3)
 				self.lastTime = pygame.time.get_ticks()
 		
+		# Prosecutor random AI v0.1
 		if ((nowTick - self.opponentPoseTick) > 2000):
 			self.opponentPoseTick = pygame.time.get_ticks()
 			r = random.randint(0,90)
@@ -123,7 +128,7 @@ class GameState(State):
 
 
 	def flash(self, nowTick):
-		#Start the flash
+		# Start the flash
 		self.flashTick = pygame.time.get_ticks()
 		self.flashing = True
 
@@ -135,7 +140,7 @@ class GameState(State):
 		wiimotetext = self.font.render("X: " + str(self.Xaxis) + " " + "Y: " + 
 			str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 10, Color.GREEN)
 
-		#Flash is last: needs to overwrite previous drawings
+		# Flash is last: needs to overwrite previous drawings
 		if self.flashing:
 			s = pygame.Surface((768,384))  # the size of your rect
 			s.set_alpha(128)                # alpha level
