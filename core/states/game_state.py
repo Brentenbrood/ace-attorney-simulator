@@ -10,6 +10,7 @@ from core.objects.phoenixwright import Lawyer
 from core.objects.milesedgeworth import Prosecutor
 from core.objects.judge import Judge
 from core.objects.emote import Emote
+from core.objects.anim_state import AnimState
 
 class GameState(State):
 
@@ -38,8 +39,9 @@ class GameState(State):
 		#Scale an image by setting it to the dict directly
 		self.images["bg-courtroom"] =  pygame.transform.scale(self.image("bg-courtroom"), (768,432))
 
-		self.lastTime =     pygame.time.get_ticks()
-		self.lastTick =     pygame.time.get_ticks()
+		self.lastTime			=	pygame.time.get_ticks()
+		self.lastTick			=	pygame.time.get_ticks()
+		self.opponentPoseTick 	= 	pygame.time.get_ticks()
 
 		self.lawyer =       Lawyer(0,192,       "../img/phoenix")
 		self.prosecutor =   Prosecutor(512,192, "../img/edgeworth")
@@ -54,8 +56,6 @@ class GameState(State):
 		super(GameState, self).update()
 
 		nowTick = pygame.time.get_ticks()
-
-		self.lawyer.hp -= 0.1
 
 		self.Xaxis = self.wm.state['acc'][0]
 		self.Yaxis = self.wm.state['acc'][1]
@@ -88,7 +88,20 @@ class GameState(State):
 				self.lawyer.changeState(3)
 				self.lastTime = pygame.time.get_ticks()
 
+		
+		if ((nowTick - self.opponentPoseTick) > 2000):
+			self.opponentPoseTick = pygame.time.get_ticks()
+			r = random.randint(0,90)
+			if r < 30:
+				self.prosecutor.changeState(AnimState.paperblock)
+			elif r >= 30 and r < 60:
+				self.prosecutor.changeState(AnimState.pointblock)
+			else:
+				self.prosecutor.changeState(AnimState.damage)
+			#do shit
+
 		self.lastTick = pygame.time.get_ticks()
+
 
 	def draw(self):
 		super(GameState, self).draw()
