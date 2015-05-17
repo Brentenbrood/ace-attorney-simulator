@@ -21,7 +21,7 @@ class GameState(State):
 
 		pygame.mixer.music.load(self.get_path_to_file( "../sound/music.wav") if random.randint(0,100)>50 else
 		 self.get_path_to_file("../sound/music2.wav"))
-		pygame.mixer.music.play()
+		#pygame.mixer.music.play()
 
 		self.font =     pygame.font.SysFont("monospace", 16)
 		self.Xaxis =    self.wm.state['acc'][0]
@@ -45,6 +45,9 @@ class GameState(State):
 		self.opponentPoseTick 	= 	pygame.time.get_ticks()
 		self.rumbleTick			=	pygame.time.get_ticks()
 
+		self.flashTick			=	pygame.time.get_ticks()
+		self.flashing			=	False
+
 		self.lawyer =       Lawyer(0,192,       "../img/phoenix")
 		self.prosecutor =   Prosecutor(512,192, "../img/edgeworth")
 		self.judge =        Judge(256,0,        "../img/judge")
@@ -67,12 +70,18 @@ class GameState(State):
 		self.Yaxis = self.wm.state['acc'][1]
 		self.Zaxis = self.wm.state['acc'][2]
 
+		if self.flashing:
+			if (nowTick - self.flashTick) > 20:
+				self.flashing = False
+
+
 		if (pygame.time.get_ticks() - self.lastTime) > 100:
 			if self.Zaxis <= 40:
 				#print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(1)
 				self.lawyer.playSound('deskslam')
 				self.lastTime = pygame.time.get_ticks()
+				self.flash(nowTick)
 			elif self.Yaxis <= 50:
 				#print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(2)
@@ -113,13 +122,25 @@ class GameState(State):
 		self.lastTick = pygame.time.get_ticks()
 
 
+	def flash(self, nowTick):
+		#Start the flash
+		self.flashTick = pygame.time.get_ticks()
+		self.flashing = True
+
 	def draw(self):
 		super(GameState, self).draw()
 
 		self.screen.blit(self.image("bg-courtroom"), (0,0))
 
 		wiimotetext = self.font.render("X: " + str(self.Xaxis) + " " + "Y: " + 
-			str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 1, Color.GREEN)
+			str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 10, Color.GREEN)
+
+		#Flash is last: needs to overwrite previous drawings
+		if self.flashing:
+			s = pygame.Surface((768,384))  # the size of your rect
+			s.set_alpha(128)                # alpha level
+			s.fill((255,255,255))           # this fills the entire surface
+			self.screen.blit(s, (0,0))    # (0,0) are the top-left coordinates
 		
 		#Emotes
 		self.holdit.draw(self.screen)
@@ -149,6 +170,5 @@ class GameState(State):
 		#Prosecutor healthbar
 		if self.prosecutor.hp > 0:
 			self.screen.blit(temp_img, (768-temp_img.get_width() + (((100 - self.prosecutor.hp)/100) * temp_img.get_width()), 80), (((100 - self.prosecutor.hp)/100) * temp_img.get_width(), 0, temp_img.get_width(), temp_img.get_height()))
-
 
 
