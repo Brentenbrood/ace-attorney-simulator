@@ -27,6 +27,7 @@ class GameState(State):
 		self.Xaxis =    self.wm.state['acc'][0]
 		self.Yaxis =    self.wm.state['acc'][1]
 		self.Zaxis =    self.wm.state['acc'][2]
+		self.rumble = False
 
 		self.addImage("empty-left",     "../img/empty-left.png")
 		self.addImage("empty-right",    "../img/empty-right.png")
@@ -42,6 +43,7 @@ class GameState(State):
 		self.lastTime			=	pygame.time.get_ticks()
 		self.lastTick			=	pygame.time.get_ticks()
 		self.opponentPoseTick 	= 	pygame.time.get_ticks()
+		self.rumbleTick			=	pygame.time.get_ticks()
 
 		self.flashTick			=	pygame.time.get_ticks()
 		self.flashing			=	False
@@ -59,6 +61,10 @@ class GameState(State):
 		super(GameState, self).update()
 
 		nowTick = pygame.time.get_ticks()
+
+		if self.rumble == True and ((nowTick - self.rumbleTick) > 400):
+			self.rumbleTick = pygame.time.get_ticks()
+			self.wm.rumble = False
 
 		self.Xaxis = self.wm.state['acc'][0]
 		self.Yaxis = self.wm.state['acc'][1]
@@ -95,12 +101,13 @@ class GameState(State):
 				else:
 					self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
 					self.lawyer.changeState(AnimState.ohshit)
-					
+					self.rumble = True
+					self.wm.rumble = True
+
 			elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
 				#print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(3)
 				self.lastTime = pygame.time.get_ticks()
-
 		
 		if ((nowTick - self.opponentPoseTick) > 2000):
 			self.opponentPoseTick = pygame.time.get_ticks()
