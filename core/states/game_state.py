@@ -74,15 +74,17 @@ class GameState(State):
 				self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 
 				r = random.randint(0, 100)
-
-				if r < 50:
-					self.objection.start()
-					self.lawyer.playSound('objection')
-					self.holdit.stop()
+				if self.prosecutor.animation != AnimState.paperblock:
+					if r < 50:
+						self.objection.start()
+						self.lawyer.playSound('objection')
+						self.holdit.stop()
+					else:
+						self.objection.stop()
+						self.holdit.start()
+						self.lawyer.playSound('holdit')
 				else:
-					self.objection.stop()
-					self.holdit.start()
-					self.lawyer.playSound('holdit')
+					self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
 			elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
 				#print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(3)
@@ -98,7 +100,6 @@ class GameState(State):
 				self.prosecutor.changeState(AnimState.pointblock)
 			else:
 				self.prosecutor.changeState(AnimState.damage)
-			#do shit
 
 		self.lastTick = pygame.time.get_ticks()
 
