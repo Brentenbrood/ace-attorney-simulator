@@ -3,9 +3,9 @@ import os
 
 from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
-from core.objects.person import Person
+from core.objects.persons import HealthPerson
 
-class Prosecutor(Person):
+class Prosecutor(HealthPerson):
     def __init__(self, x, y, base_sprite_path):
         super(Prosecutor, self).__init__(x, y, base_sprite_path)
 

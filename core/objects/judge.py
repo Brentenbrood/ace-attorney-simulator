@@ -3,7 +3,7 @@ import os
 
 from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
-from core.objects.person import Person
+from core.objects.persons import Person
 
 class Judge(Person):
     def __init__(self, x, y, base_sprite_path):
