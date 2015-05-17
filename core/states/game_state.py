@@ -59,6 +59,8 @@ class GameState(State):
 		self.streak = 0
 		self.truestreak = 0
 		self.rbreakstreak = random.randint(2,6)
+		self.stunned = False
+		self.stunnedTick = pygame.time.get_ticks()
 
 
 	def update(self):
@@ -79,8 +81,13 @@ class GameState(State):
 			if (nowTick - self.flashTick) > 20:
 				self.flashing = False
 
+		if self.stunned:
+			self.lawyer.changeState(AnimState.ohshit)
+			if (nowTick - self.stunned) > 1000:
+				print "You can attack again!"
+				self.stunned = False
 
-		if (pygame.time.get_ticks() - self.lastTime) > 100:
+		if (pygame.time.get_ticks() - self.lastTime) > 100 and self.stunned != True:
 			if self.Zaxis <= 40:
 				#print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(1)
@@ -134,6 +141,7 @@ class GameState(State):
 			else:
 				self.prosecutor.changeState(AnimState.handslam)
 				self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
+				self.stun(nowTick)
 
 		# Prosecutor blocks you on succesful streak
 		elif self.streak > self.rbreakstreak:
@@ -148,6 +156,11 @@ class GameState(State):
 		# Start the flash
 		self.flashTick = pygame.time.get_ticks()
 		self.flashing = True
+
+	def stun(self, nowTick):
+		# Start the stun
+		self.stunnedTick = pygame.time.get_ticks()
+		self.stunned = True
 
 	def draw(self):
 		super(GameState, self).draw()
