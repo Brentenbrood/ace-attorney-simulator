@@ -44,9 +44,7 @@ class Person(object):
 
 
 class HealthPerson(Person):
-	pass
-
-
-
-
-		
+	
+	def __init__(self, x, y, bsp, max_hp=100):
+		super(HealthPerson, self).__init__(x, y, bsp)
+		self.hp = max_hp
