@@ -70,6 +70,7 @@ class GameState(State):
 				#print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(2)
 				self.lastTime = pygame.time.get_ticks()
+				self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 
 				r = random.randint(0, 100)
 
@@ -124,8 +125,9 @@ class GameState(State):
 		if self.lawyer.hp > 0:
 			self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
 
-        #Prosecutor healthbar
-        if self.prosecutor.hp > 0:
-            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.prosecutor.hp/100*temp_img.get_width(), temp_img.get_height()))
+		#Prosecutor healthbar
+		if self.prosecutor.hp > 0:
+			self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
+
 
 
