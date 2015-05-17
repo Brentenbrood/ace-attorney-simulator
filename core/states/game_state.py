@@ -57,6 +57,7 @@ class GameState(State):
 		self.takethat =     Emote(256, 192, "../img/emote-takethat.gif")
 
 		self.streak = 0
+		self.truestreak = 0
 		self.rbreakstreak = random.randint(2,6)
 
 
@@ -100,6 +101,7 @@ class GameState(State):
 					# On succesful hit damages the prosecutor
 					self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 					self.streak += 1
+					self.truestreak += 1
 					if r < 50:
 						self.objection.start()
 						self.lawyer.playSound('objection')
@@ -111,6 +113,7 @@ class GameState(State):
 				else:
 					# Shit happens when you use objection!/hold it! when prosecutor blocks
 					self.lawyer.hp -= 400*((nowTick - self.lastTick)/1000.0)
+					self.truestreak = 0
 					self.lawyer.changeState(AnimState.ohshit)
 					self.rumble = True
 					self.wm.rumble = True
@@ -132,9 +135,9 @@ class GameState(State):
 				self.prosecutor.changeState(AnimState.handslam)
 				self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
 
+		# Prosecutor blocks you on succesful streak
 		elif self.streak > self.rbreakstreak:
-			self.streak = 0
-			self.rbreakstreak = random.randint(2,6)
+			self.rbreakstreak = self.streak + random.randint(2,6)
 			self.prosecutor.changeState(AnimState.paperblock)
 
 
@@ -189,3 +192,7 @@ class GameState(State):
 		#Prosecutor healthbar
 		if self.prosecutor.hp > 0:
 			self.screen.blit(temp_img, (768-temp_img.get_width() + (((100 - self.prosecutor.hp)/100) * temp_img.get_width()), 80), (((100 - self.prosecutor.hp)/100) * temp_img.get_width(), 0, temp_img.get_width(), temp_img.get_height()))
+
+		#Streak
+		streakstr = self.font.render("Streak: " + str(self.truestreak), 10, Color.GREEN)
+		self.screen.blit(streakstr, (10,60))
