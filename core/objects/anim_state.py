@@ -16,6 +16,7 @@ class AnimState(Enum):
 	paperblock = 5
 	pointblock = 6
 	angry = 7
+	handslam = 10
 
 	#Judge
 	shocked = 8

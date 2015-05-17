@@ -27,7 +27,7 @@ class GameState(State):
 		self.Xaxis =    self.wm.state['acc'][0]
 		self.Yaxis =    self.wm.state['acc'][1]
 		self.Zaxis =    self.wm.state['acc'][2]
-		self.rumble = False
+		self.rumble = 	False
 
 		self.addImage("empty-left",     "../img/empty-left.png")
 		self.addImage("empty-right",    "../img/empty-right.png")
@@ -122,7 +122,7 @@ class GameState(State):
 			elif r >= 30 and r < 60:
 				self.prosecutor.changeState(AnimState.pointblock)
 			else:
-				self.prosecutor.changeState(AnimState.damage)
+				self.prosecutor.changeState(AnimState.handslam)
 
 		self.lastTick = pygame.time.get_ticks()
 
@@ -175,5 +175,3 @@ class GameState(State):
 		#Prosecutor healthbar
 		if self.prosecutor.hp > 0:
 			self.screen.blit(temp_img, (768-temp_img.get_width() + (((100 - self.prosecutor.hp)/100) * temp_img.get_width()), 80), (((100 - self.prosecutor.hp)/100) * temp_img.get_width(), 0, temp_img.get_width(), temp_img.get_height()))
-
-
