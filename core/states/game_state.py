@@ -52,6 +52,7 @@ class GameState(State):
             if self.Zaxis <= 40:
                 #print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(1)
+                self.lawyer.playSound('deskslam')
                 self.lastTime = pygame.time.get_ticks()
             elif self.Yaxis <= 50:
                 #print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
@@ -67,6 +68,7 @@ class GameState(State):
                 else:
                     self.objection.stop()
                     self.holdit.start()
+                    self.lawyer.playSound('holdit')
             elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
                 #print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(3)

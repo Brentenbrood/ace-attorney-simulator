@@ -10,7 +10,8 @@ class Lawyer(Person):
 		super(Lawyer, self).__init__(x, y, base_sprite_path)
 
 		self.addSound("objection", "../sound/sfx-objection.wav")
-		self.addSound("deskslam", "../sound/sfx-deskslam2.wav")
+		self.addSound("deskslam", "../sound/sfx-deskslam.wav")
+		self.addSound("holdit", "../sound/sfx-holdit.wav")
 
 		self.addState(AnimState.normal, "-normal.gif", False)
 		self.addState(AnimState.deskslam, "-deskslam.gif", True)
