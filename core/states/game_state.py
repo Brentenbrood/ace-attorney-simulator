@@ -22,23 +22,23 @@ class GameState(State):
         self.Yaxis =    self.wm.state['acc'][1]
         self.Zaxis =    self.wm.state['acc'][2]
 
-        self.images["empty-left"] =     pygame.image.load(self.get_path_to_file('../img/empty-left.png'))        
-        self.images["empty-right"] =    pygame.image.load(self.get_path_to_file('../img/empty-right.png'))
-        self.images["desk-left"] =      pygame.image.load(self.get_path_to_file('../img/bench-left.png'))
-        self.images["desk-right"] =     pygame.image.load(self.get_path_to_file('../img/bench-right.png'))
-        self.images["bench-judge"] =    pygame.image.load(self.get_path_to_file('../img/bench-judge.png'))
-        self.images["bg-courtroom"] =   pygame.image.load(self.get_path_to_file('../img/bg-courtroom.jpg'))
-        self.images["healthbar"] =      pygame.image.load(self.get_path_to_file('../img/healthbar.png'))
+        self.addImage("empty-left",     "../img/empty-left.png")
+        self.addImage("empty-right",    "../img/empty-right.png")
+        self.addImage("desk-left",      "../img/bench-left.png")
+        self.addImage("desk-right",     "../img/bench-right.png")
+        self.addImage("bench-judge",    "../img/bench-judge.png")
+        self.addImage("bg-courtroom",   "../img/bg-courtroom.jpg")
+        self.addImage("healthbar",      "../img/healthbar.png")
 
         #Scale some images
-        self.images["bg-courtroom"] =   pygame.transform.scale(self.images["bg-courtroom"], (768,432))
+        self.image("bg-courtroom") =   pygame.transform.scale(self.image("bg-courtroom"), (768,432))
 
         self.lastTime =     pygame.time.get_ticks()
         self.lastTick =     pygame.time.get_ticks()
 
-        self.lawyer =       Lawyer(0,192,"../img/phoenix")
-        self.prosecutor =   Prosecutor(512,192,"../img/edgeworth")
-        self.judge =        Judge(256,0,"../img/judge")
+        self.lawyer =       Lawyer(0,192,       "../img/phoenix")
+        self.prosecutor =   Prosecutor(512,192, "../img/edgeworth")
+        self.judge =        Judge(256,0,        "../img/judge")
 
         self.holdit =       Emote(256, 192, "../img/emote-holdit.gif")
         self.objection =    Emote(256, 192, "../img/emote-objection.gif")
@@ -90,7 +90,7 @@ class GameState(State):
     def draw(self):
         super(GameState, self).draw()
 
-        self.screen.blit(self.images["bg-courtroom"], (0,0))
+        self.screen.blit(self.image("bg-courtroom"), (0,0))
 
         wiimotetext = self.font.render("X: " + str(self.Xaxis) + " " + "Y: " + 
             str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 1, Color.GREEN)
@@ -102,21 +102,21 @@ class GameState(State):
         self.screen.blit(wiimotetext, (280,384))
 
         #Lawyer
-        self.screen.blit(self.images["empty-left"], (0,192))
+        self.screen.blit(self.image("empty-left"), (0,192))
         self.lawyer.draw(self.screen)
-        self.screen.blit(self.images["desk-left"], (0,192))
+        self.screen.blit(self.image("desk-left"), (0,192))
 
         #Prosecutor
-        self.screen.blit(self.images["empty-right"], (512,192))
+        self.screen.blit(self.image("empty-right"), (512,192))
         self.prosecutor.draw(self.screen)
-        self.screen.blit(self.images["desk-right"], (512,192))
+        self.screen.blit(self.image("desk-right"), (512,192))
 
         #Judge
-        self.screen.blit(self.images["bench-judge"], (256,0))
+        self.screen.blit(self.image("bench-judge"), (256,0))
         self.judge.draw(self.screen)
 
         #Healthbar Lawyer
-        temp_img  = self.images["healthbar"]
+        temp_img  = self.image("healthbar")
         if self.lawyer.hp > 0:
             self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
 
