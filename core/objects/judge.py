@@ -11,6 +11,7 @@ class Judge(Person):
       
         self.addState(AnimState.normal, "-normal.gif", False)
         self.addState(AnimState.shocked, "-shocked.gif", False)
+        
         self.changeState(AnimState.normal)
 
 
