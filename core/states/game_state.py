@@ -18,7 +18,7 @@ class GameState(State):
 		
 		pygame.mixer.init()
 
-		self.music = pygame.mixer.music.load(self.get_path_to_file("../sound/music.wav"))
+		pygame.mixer.music.load(self.get_path_to_file("../sound/music.wav"))
 		pygame.mixer.music.play()
 
 		self.font =     pygame.font.SysFont("monospace", 16)
@@ -89,9 +89,6 @@ class GameState(State):
 
 		self.lastTick = pygame.time.get_ticks()
 
-
-		
-
 	def draw(self):
 		super(GameState, self).draw()
 
@@ -125,9 +122,9 @@ class GameState(State):
 		if self.lawyer.hp > 0:
 			self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
 
-        #Prosecutor healthbar
-        if self.prosecutor.hp > 0:
-            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), ((100 - self.lawyer.hp) * temp_img.get_width, 0, temp_img.get_width(), temp_img.get_height()))
+		#Prosecutor healthbar
+		if self.prosecutor.hp > 0:
+			self.screen.blit(temp_img, (768-temp_img.get_width() + (((100 - self.prosecutor.hp)/100) * temp_img.get_width()), 80), (((100 - self.prosecutor.hp)/100) * temp_img.get_width(), 0, temp_img.get_width(), temp_img.get_height()))
 
 
 

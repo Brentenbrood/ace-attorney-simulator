@@ -12,10 +12,6 @@ class Menu(State):
 
         self.wm.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.wm.led = 1
-
-        self.choices = [
-            ("Play",       GameState(self.screen, self.wm, self.game))]
-            #("How to play", HowToPlayState(self.screen, self.wm, self.game))]
         
         self.screen.fill(Color.BLACK)
 
