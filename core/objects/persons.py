@@ -14,6 +14,8 @@ class Person(object):
 		self.sprites = {}
 		self.sounds = {}
 
+		self.animation = None
+
 		self.stop = True
 		self.gif = None
 
@@ -33,6 +35,7 @@ class Person(object):
 			self.sounds[name].play()
 
 	def changeState(self, n):
+		self.animation = n
 		animation = self.sprites[n]
 		if animation:
 			self.gif = GIFImage(animation[0])
