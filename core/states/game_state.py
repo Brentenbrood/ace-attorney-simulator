@@ -126,6 +126,6 @@ class GameState(State):
 
         #Prosecutor healthbar
         if self.prosecutor.hp > 0:
-            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.prosecutor.hp/100*temp_img.get_width(), temp_img.get_height()))
+            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), ((100 - self.lawyer.hp) * temp_img.get_width, 0, temp_img.get_width(), temp_img.get_height()))
 
 
