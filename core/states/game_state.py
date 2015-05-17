@@ -12,6 +12,7 @@ from core.objects.judge import Judge
 from core.objects.emote import Emote
 
 class GameState(State):
+
 	def __init__(self, screen, wm, game):
 		super(GameState, self).__init__(wm, screen, game)
 		
@@ -123,7 +124,8 @@ class GameState(State):
 		if self.lawyer.hp > 0:
 			self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
 
-		#Prosecutor healthbar
-		if self.prosecutor.hp > 0:
-			self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.prosecutor.hp/100*temp_img.get_width(), temp_img.get_height()))
+        #Prosecutor healthbar
+        if self.prosecutor.hp > 0:
+            self.screen.blit(temp_img, (768-temp_img.get_width(), 80), (0, 0, self.prosecutor.hp/100*temp_img.get_width(), temp_img.get_height()))
+
 
