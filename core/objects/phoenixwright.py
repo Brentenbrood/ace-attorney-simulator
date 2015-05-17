@@ -6,8 +6,8 @@ from core.utils.GIFImage import GIFImage
 from core.objects.persons import HealthPerson
 
 class Lawyer(HealthPerson):
-    def __init__(self, x, y, base_sprite_path):
-        super(Lawyer, self).__init__(x, y, base_sprite_path)
+	def __init__(self, x, y, base_sprite_path):
+		super(Lawyer, self).__init__(x, y, base_sprite_path)
 
 		self.addSound("objection", "../sound/sfx-objection.wav")
 		self.addSound("deskslam", "../sound/sfx-deskslam.wav")
