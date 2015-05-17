@@ -82,7 +82,10 @@ class GameState(State):
 				self.lawyer.changeState(1)
 				self.lawyer.playSound('deskslam')
 				self.lastTime = pygame.time.get_ticks()
-				self.flash(nowTick)
+				if self.prosecutor.animation == AnimState.paperblock:
+					self.flash(nowTick)
+					self.prosecutor.changeState(AnimState.damage)
+
 			elif self.Yaxis <= 50:
 				#print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
 				self.lawyer.changeState(2)
@@ -103,7 +106,7 @@ class GameState(State):
 						self.lawyer.playSound('holdit')
 				else:
 					# Shit happens when you use objection!/hold it! when prosecutor blocks
-					self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
+					self.lawyer.hp -= 400*((nowTick - self.lastTick)/1000.0)
 					self.lawyer.changeState(AnimState.ohshit)
 					self.rumble = True
 					self.wm.rumble = True
@@ -123,6 +126,8 @@ class GameState(State):
 				self.prosecutor.changeState(AnimState.pointblock)
 			else:
 				self.prosecutor.changeState(AnimState.handslam)
+				self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
+
 
 		self.lastTick = pygame.time.get_ticks()
 
