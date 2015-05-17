@@ -62,6 +62,7 @@ class GameState(State):
 
                 if r < 50:
                     self.objection.start()
+                    self.lawyer.playSound('objection')
                     self.holdit.stop()
                 else:
                     self.objection.stop()
