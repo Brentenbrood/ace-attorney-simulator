@@ -1,6 +1,9 @@
 import pygame
 import cwiid
 import os
+import random
+import math
+
 from core.utils.colors import Color
 from core.states.state import State
 from core.objects.phoenixwright import Lawyer
@@ -9,80 +12,120 @@ from core.objects.judge import Judge
 from core.objects.emote import Emote
 
 class GameState(State):
-    def __init__(self, screen, wm, game):
-        super(GameState, self).__init__(wm, screen, game)
-        
-        self.font = pygame.font.SysFont("monospace", 16)
-        self.Xaxis = "X: " + str(self.wm.state['acc'][0])
-        self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
-        self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
 
-        f = os.path.dirname(__file__)
+	def __init__(self, screen, wm, game):
+		super(GameState, self).__init__(wm, screen, game)
+		
+		pygame.mixer.init()
 
-        self.images["empty-left"] =     pygame.image.load(os.path.join(f, '../img/empty-left.png'))        
-        self.images["empty-right"] =    pygame.image.load(os.path.join(f, '../img/empty-right.png'))
-        self.images["desk-left"] =      pygame.image.load(os.path.join(f, '../img/bench-left.png'))
-        self.images["desk-right"] =     pygame.image.load(os.path.join(f, '../img/bench-right.png'))
-        self.images["bench-judge"] =     pygame.image.load(os.path.join(f, '../img/bench-judge.png'))
-        self.images["bg-courtroom"] =     pygame.image.load(os.path.join(f, '../img/bg-courtroom.jpg'))
+		pygame.mixer.music.load(self.get_path_to_file( "../sound/music.wav") if random.randint(0,100)>50 else
+		 self.get_path_to_file("../sound/music2.wav"))
+		pygame.mixer.music.play()
 
-        self.lastTime = pygame.time.get_ticks()
+		self.font =     pygame.font.SysFont("monospace", 16)
+		self.Xaxis =    self.wm.state['acc'][0]
+		self.Yaxis =    self.wm.state['acc'][1]
+		self.Zaxis =    self.wm.state['acc'][2]
 
-        self.lawyer = Lawyer(0,192,"../img/phoenix")
-        self.prosecutor = Prosecutor(512,192,"../img/edgeworth")
-        self.judge = Judge(256,0,"../img/judge")
+		self.addImage("empty-left",     "../img/empty-left.png")
+		self.addImage("empty-right",    "../img/empty-right.png")
+		self.addImage("desk-left",      "../img/bench-left.png")
+		self.addImage("desk-right",     "../img/bench-right.png")
+		self.addImage("bench-judge",    "../img/bench-judge.png")
+		self.addImage("bg-courtroom",   "../img/bg-courtroom.jpg")
+		self.addImage("healthbar",      "../img/healthbar.png")
 
-        self.holdit = Emote(256, 192, "../img/emote-holdit.gif")
-        self.objection = Emote(256, 192, "../img/emote-objection.gif")
-        self.takethat = Emote(256, 192, "../img/emote-takethat.gif")
+		#Scale an image by setting it to the dict directly
+		self.images["bg-courtroom"] =  pygame.transform.scale(self.image("bg-courtroom"), (768,432))
+
+		self.lastTime =     pygame.time.get_ticks()
+		self.lastTick =     pygame.time.get_ticks()
+
+		self.lawyer =       Lawyer(0,192,       "../img/phoenix")
+		self.prosecutor =   Prosecutor(512,192, "../img/edgeworth")
+		self.judge =        Judge(256,0,        "../img/judge")
+
+		self.holdit =       Emote(256, 192, "../img/emote-holdit.gif")
+		self.objection =    Emote(256, 192, "../img/emote-objection.gif")
+		self.takethat =     Emote(256, 192, "../img/emote-takethat.gif")
 
 
-    def update(self):
-        super(GameState, self).update()
-        self.Xaxis = "X: " + str(self.wm.state['acc'][0])
-        self.Yaxis = "Y: " + str(self.wm.state['acc'][1])
-        self.Zaxis = "Z: " + str(self.wm.state['acc'][2])
+	def update(self):
+		super(GameState, self).update()
 
-        if (pygame.time.get_ticks() - self.lastTime) > 100:
-            if self.wm.state['acc'][2] <= 40:
-                print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-                self.lawyer.changeState(1)
-                self.lastTime = pygame.time.get_ticks()
-            elif self.wm.state['acc'][1] <= 50:
-                print "OBJECTION " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-                self.lawyer.changeState(2)
-                self.lastTime = pygame.time.get_ticks()
-                self.objection.start()
-            elif self.wm.state['acc'][0] <= 30 and self.wm.state['acc'][1] >= 120 and self.wm.state['acc'][2] <= 110:
-                print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
-                self.lawyer.changeState(3)
-                self.lastTime = pygame.time.get_ticks()
-        
+		nowTick = pygame.time.get_ticks()
 
-    def draw(self):
-        super(GameState, self).draw()
+		self.lawyer.hp -= 0.1
 
-        self.screen.blit(self.images["bg-courtroom"], (0,0))
-        # self.screen.transform.scale(["bg-courtroom"], (768,432))
+		self.Xaxis = self.wm.state['acc'][0]
+		self.Yaxis = self.wm.state['acc'][1]
+		self.Zaxis = self.wm.state['acc'][2]
 
-        wiimotetext = self.font.render(self.Xaxis + " " + self.Yaxis + " " + self.Zaxis, 1, Color.GREEN)
+		if (pygame.time.get_ticks() - self.lastTime) > 100:
+			if self.Zaxis <= 40:
+				#print "SLAM " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
+				self.lawyer.changeState(1)
+				self.lawyer.playSound('deskslam')
+				self.lastTime = pygame.time.get_ticks()
+			elif self.Yaxis <= 50:
+				#print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
+				self.lawyer.changeState(2)
+				self.lastTime = pygame.time.get_ticks()
+				self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
 
-        #Emotes
-        self.holdit.draw(self.screen)
-        self.takethat.draw(self.screen)
-        self.objection.draw(self.screen)
-        self.screen.blit(wiimotetext, (280,384))
+				r = random.randint(0, 100)
 
-        #Lawyer
-        self.screen.blit(self.images["empty-left"], (0,192))
-        self.lawyer.draw(self.screen)
-        self.screen.blit(self.images["desk-left"], (0,192))
+				if r < 50:
+					self.objection.start()
+					self.lawyer.playSound('objection')
+					self.holdit.stop()
+				else:
+					self.objection.stop()
+					self.holdit.start()
+					self.lawyer.playSound('holdit')
+			elif self.Xaxis <= 30 and self.Yaxis >= 120 and self.Zaxis <= 110:
+				#print "PAPERSLAP " + self.Xaxis + " " + self.Yaxis + " " + self.Zaxis
+				self.lawyer.changeState(3)
+				self.lastTime = pygame.time.get_ticks()
 
-        #Prosecutor
-        self.screen.blit(self.images["empty-right"], (512,192))
-        self.prosecutor.draw(self.screen)
-        self.screen.blit(self.images["desk-right"], (512,192))
+		self.lastTick = pygame.time.get_ticks()
 
-        #Judge
-        self.screen.blit(self.images["bench-judge"], (256,0))
-        self.judge.draw(self.screen)
+	def draw(self):
+		super(GameState, self).draw()
+
+		self.screen.blit(self.image("bg-courtroom"), (0,0))
+
+		wiimotetext = self.font.render("X: " + str(self.Xaxis) + " " + "Y: " + 
+			str(self.Yaxis) + " " + "Z: " + str(self.Zaxis), 1, Color.GREEN)
+		
+		#Emotes
+		self.holdit.draw(self.screen)
+		self.takethat.draw(self.screen)
+		self.objection.draw(self.screen)
+		self.screen.blit(wiimotetext, (280,384))
+
+		#Lawyer
+		self.screen.blit(self.image("empty-left"), (0,192))
+		self.lawyer.draw(self.screen)
+		self.screen.blit(self.image("desk-left"), (0,192))
+
+		#Prosecutor
+		self.screen.blit(self.image("empty-right"), (512,192))
+		self.prosecutor.draw(self.screen)
+		self.screen.blit(self.image("desk-right"), (512,192))
+
+		#Judge
+		self.screen.blit(self.image("bench-judge"), (256,0))
+		self.judge.draw(self.screen)
+
+		#Healthbar Lawyer
+		temp_img  = self.image("healthbar")
+		if self.lawyer.hp > 0:
+			self.screen.blit(temp_img, (0, 81), (0, 0, self.lawyer.hp/100*temp_img.get_width(), temp_img.get_height()))
+
+		#Prosecutor healthbar
+		if self.prosecutor.hp > 0:
+			self.screen.blit(temp_img, (768-temp_img.get_width() + (((100 - self.prosecutor.hp)/100) * temp_img.get_width()), 80), (((100 - self.prosecutor.hp)/100) * temp_img.get_width(), 0, temp_img.get_width(), temp_img.get_height()))
+
+
+

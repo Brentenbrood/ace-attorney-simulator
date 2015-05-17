@@ -1,3 +1,6 @@
+import os
+import pygame
+
 class State(object):
 	def __init__(self, wm, screen, game):
 		self.wm = wm;
@@ -10,5 +13,16 @@ class State(object):
 			print "Closing connection..."
 			exit(self.wm)
 
+	"""Can be accessed by State.image(name) and State.images[name]"""
+	def addImage(self, name, path):
+		self.images[name] = pygame.image.load(self.get_path_to_file(path))
+
+	def image(self, name):
+		return self.images[name]
+
 	def draw(self):
 		pass
+
+	def get_path_to_file(self, f):
+		dir = os.path.dirname(__file__)
+		return os.path.join(dir, f)

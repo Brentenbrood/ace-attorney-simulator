@@ -8,11 +8,11 @@ class Menu(State):
     def __init__(self, screen, wm, game):
         super(Menu, self).__init__(wm, screen, game)
 
-        self.font = pygame.font.SysFont("monospace", 16)
+        self.font = pygame.font.Font(self.get_path_to_file("../fonts/Ace-Attorney.ttf"), 24)
 
         self.wm.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
         self.wm.led = 1
-        #Reset the screen
+        
         self.screen.fill(Color.BLACK)
 
     def update(self):
@@ -20,6 +20,7 @@ class Menu(State):
 
     	while self.wm.state['buttons'] == 8:
             self.game.changeState(GameState(self.screen, self.wm, self.game))
+
 
     def draw(self):
         super(Menu, self).draw()
