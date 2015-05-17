@@ -50,8 +50,6 @@ class GameState(State):
 
         nowTick = pygame.time.get_ticks()
 
-        self.lawyer.hp -= 0.1
-
         self.Xaxis = self.wm.state['acc'][0]
         self.Yaxis = self.wm.state['acc'][1]
         self.Zaxis = self.wm.state['acc'][2]
@@ -66,6 +64,8 @@ class GameState(State):
                 #print "OBJECTION " + str(self.Xaxis) + " " + str(self.Yaxis + " " + self.Zaxis
                 self.lawyer.changeState(2)
                 self.lastTime = pygame.time.get_ticks()
+                self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
+                print str(200*((nowTick - self.lastTick)/1000.0))
 
                 r = random.randint(0, 100)
 
