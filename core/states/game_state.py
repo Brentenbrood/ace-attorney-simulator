@@ -18,7 +18,7 @@ class GameState(State):
 		
 		pygame.mixer.init()
 
-		pygame.mixer.music.load(self.get_path_to_file("../sound/music.wav"))
+		pygame.mixer.music.load(self.get_path_to_file( "../sound/music.wav") if random.randint(0,100)>50 else "../sound/music2.wav")
 		pygame.mixer.music.play()
 
 		self.font =     pygame.font.SysFont("monospace", 16)
