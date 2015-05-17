@@ -56,6 +56,9 @@ class GameState(State):
 		self.objection =    Emote(256, 192, "../img/emote-objection.gif")
 		self.takethat =     Emote(256, 192, "../img/emote-takethat.gif")
 
+		self.streak = 0
+		self.rbreakstreak = random.randint(2,6)
+
 
 	def update(self):
 		super(GameState, self).update()
@@ -96,6 +99,7 @@ class GameState(State):
 					r = random.randint(0, 100)
 					# On succesful hit damages the prosecutor
 					self.prosecutor.hp -= 200*((nowTick - self.lastTick)/1000.0)
+					self.streak += 1
 					if r < 50:
 						self.objection.start()
 						self.lawyer.playSound('objection')
@@ -127,6 +131,11 @@ class GameState(State):
 			else:
 				self.prosecutor.changeState(AnimState.handslam)
 				self.lawyer.hp -= 200*((nowTick - self.lastTick)/1000.0)
+
+		elif self.streak > self.rbreakstreak:
+			self.streak = 0
+			self.rbreakstreak = random.randint(2,6)
+			self.prosecutor.changeState(AnimState.paperblock)
 
 
 		self.lastTick = pygame.time.get_ticks()
