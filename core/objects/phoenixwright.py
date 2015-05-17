@@ -5,7 +5,6 @@ from core.objects.anim_state import AnimState
 from core.utils.GIFImage import GIFImage
 from core.objects.persons import HealthPerson
 
-<<<<<<< HEAD
 class Lawyer(HealthPerson):
     def __init__(self, x, y, base_sprite_path):
         super(Lawyer, self).__init__(x, y, base_sprite_path)
