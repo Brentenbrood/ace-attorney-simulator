@@ -29,5 +29,5 @@ class Game():
         	self.state.update()
         	self.state.draw()
         	pygame.display.update()
-        	self.clock.tick(60)
+        	self.clock.tick(59)
 

@@ -12,11 +12,13 @@ class Lawyer(HealthPerson):
 		self.addSound("objection", "../sound/sfx-objection.wav")
 		self.addSound("deskslam", "../sound/sfx-deskslam.wav")
 		self.addSound("holdit", "../sound/sfx-holdit.wav")
-
+		
+		# True = stops playing gif, False = loop gif
 		self.addState(AnimState.normal, "-normal.gif", False)
 		self.addState(AnimState.deskslam, "-deskslam.gif", True)
 		self.addState(AnimState.objection, "-objection.gif", True)
 		self.addState(AnimState.paperslap, "-paperslap.gif", False)
+		self.addState(AnimState.ohshit, "-ohshit.gif", True)
 
 		self.changeState(AnimState.normal)
 		
